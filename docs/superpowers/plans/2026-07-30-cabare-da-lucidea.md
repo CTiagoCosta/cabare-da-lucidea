@@ -165,6 +165,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Subagent-driven-development scratch workspace
+.superpowers/
 ```
 
 - [ ] **Step 6: Create `src/index.css`**
