@@ -41,9 +41,9 @@ export default function ConfirmarPresenca() {
 
   if (!open) {
     return (
-      <section id="confirmar" className="py-20 px-6 text-center">
-        <div className="max-w-xl mx-auto bg-white/5 border border-amber-500/30 rounded-2xl p-10">
-          <h2 className="text-2xl font-bold text-amber-400 mb-2">Prazo de confirmação encerrado</h2>
+      <section id="confirmar" className="relative overflow-hidden border-t border-amber-500/10 bg-velvet/25 px-5 py-20 text-center">
+        <div className="max-w-xl mx-auto bg-white/[0.06] border border-amber-500/25 rounded-2xl p-10">
+          <h2 className="font-display text-2xl font-semibold text-gold-gradient mb-2">Prazo de confirmação encerrado</h2>
           <p className="text-white/70">O prazo para confirmar presença já passou. Qualquer dúvida, fale direto com a gente.</p>
         </div>
       </section>
@@ -52,9 +52,9 @@ export default function ConfirmarPresenca() {
 
   if (status === 'success') {
     return (
-      <section id="confirmar" className="py-20 px-6 text-center">
-        <div className="max-w-xl mx-auto bg-white/5 border border-amber-500/30 rounded-2xl p-10">
-          <h2 className="text-2xl font-bold text-amber-400 mb-2">Presença confirmada! 🥂</h2>
+      <section id="confirmar" className="relative overflow-hidden border-t border-amber-500/10 bg-velvet/25 px-5 py-20 text-center">
+        <div className="max-w-xl mx-auto bg-white/[0.06] border border-amber-500/25 rounded-2xl p-10">
+          <h2 className="font-display text-2xl font-semibold text-gold-gradient mb-2">Presença confirmada! 🥂</h2>
           <p className="text-white/70">Te esperamos no Cabaré da Lucidéa!</p>
         </div>
       </section>
@@ -62,10 +62,13 @@ export default function ConfirmarPresenca() {
   }
 
   return (
-    <section id="confirmar" className="py-20 px-6">
+    <section id="confirmar" className="relative overflow-hidden border-t border-amber-500/10 bg-velvet/25 px-5 py-20 text-center">
       <div className="max-w-xl mx-auto">
-        <h2 className="font-serif text-3xl font-bold text-center text-amber-400 mb-8">Confirmar presença</h2>
-        <form onSubmit={handleSubmit} className="bg-white/5 border border-amber-500/30 rounded-2xl p-8 space-y-6">
+        <h2 className="font-display text-2xl font-semibold text-gold-gradient sm:text-3xl">Confirme sua presença</h2>
+        <p className="mx-auto mt-4 max-w-md text-sm text-white/70 sm:text-base">
+          Precisamos da sua confirmação até <strong className="text-amber-400">07/10</strong> para reservar o seu lugar na plateia.
+        </p>
+        <form onSubmit={handleSubmit} className="mt-9 text-left bg-white/[0.06] border border-amber-500/25 rounded-2xl p-8 space-y-6">
           <div>
             <label className="block text-sm text-white/70 mb-2">Seu nome</label>
             <input
@@ -73,7 +76,7 @@ export default function ConfirmarPresenca() {
               required
               value={nome}
               onChange={(e) => setNome(e.target.value)}
-              className="w-full bg-black/40 border border-white/20 rounded-lg px-4 py-3 text-white focus:border-amber-400 focus:outline-none"
+              className="w-full bg-white/[0.04] border border-white/15 rounded-lg px-4 py-3 text-white focus:border-amber-400 focus:outline-none"
               placeholder="Nome completo"
             />
           </div>
@@ -88,7 +91,7 @@ export default function ConfirmarPresenca() {
                     required
                     value={acompanhante}
                     onChange={(e) => updateAcompanhante(index, e.target.value)}
-                    className="flex-1 bg-black/40 border border-white/20 rounded-lg px-4 py-3 text-white focus:border-amber-400 focus:outline-none"
+                    className="flex-1 bg-white/[0.04] border border-white/15 rounded-lg px-4 py-3 text-white focus:border-amber-400 focus:outline-none"
                     placeholder={`Nome do acompanhante ${index + 1}`}
                   />
                   <button
