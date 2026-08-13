@@ -79,19 +79,27 @@ const SEED_CONVIDADOS = [
 ]
 
 function doGet(e) {
-  const action = e.parameter.action
-  if (action === 'indice') return handleIndice()
-  if (action === 'familia') return handleFamilia(e.parameter.id)
-  if (action === 'lista') return handleLista(e.parameter.pin)
-  return jsonResponse({ ok: false, error: 'ação inválida' })
+  try {
+    const action = e.parameter.action
+    if (action === 'indice') return handleIndice()
+    if (action === 'familia') return handleFamilia(e.parameter.id)
+    if (action === 'lista') return handleLista(e.parameter.pin)
+    return jsonResponse({ ok: false, error: 'ação inválida' })
+  } catch (err) {
+    return jsonResponse({ ok: false, error: 'planilha com cabeçalho inválido' })
+  }
 }
 
 function doPost(e) {
-  const body = JSON.parse(e.postData.contents)
-  if (body.action !== 'confirmar') {
-    return jsonResponse({ ok: false, error: 'ação inválida' })
+  try {
+    const body = JSON.parse(e.postData.contents)
+    if (body.action !== 'confirmar') {
+      return jsonResponse({ ok: false, error: 'ação inválida' })
+    }
+    return handleConfirmar(Array.isArray(body.ids) ? body.ids.filter(Boolean) : [])
+  } catch (err) {
+    return jsonResponse({ ok: false, error: 'planilha com cabeçalho inválido' })
   }
-  return handleConfirmar(Array.isArray(body.ids) ? body.ids.filter(Boolean) : [])
 }
 
 function handleIndice() {
@@ -134,6 +142,10 @@ function handleConfirmar(ids) {
     const familiaIdx = header.indexOf('Família')
     const confirmadoIdx = header.indexOf('Confirmado')
     const confirmadoEmIdx = header.indexOf('ConfirmadoEm')
+
+    if ([idIdx, familiaIdx, confirmadoIdx, confirmadoEmIdx].indexOf(-1) !== -1) {
+      return jsonResponse({ ok: false, error: 'planilha com cabeçalho inválido' })
+    }
 
     let familiaAlvo = null
     const now = new Date()
@@ -223,7 +235,17 @@ function getAllPessoas() {
   const sheet = getConvidadosSheet()
   const values = sheet.getDataRange().getValues()
   const header = values[0]
+  validateHeader(header)
   return values.slice(1).map((row) => rowToPessoa(header, row))
+}
+
+const REQUIRED_HEADER_COLUMNS = ['ID', 'Família', 'Nome', 'IdadeNota', 'Nota', 'NãoPagante', 'Confirmado', 'ConfirmadoEm']
+
+function validateHeader(header) {
+  const missing = REQUIRED_HEADER_COLUMNS.some((col) => header.indexOf(col) === -1)
+  if (missing) {
+    throw new Error('planilha com cabeçalho inválido')
+  }
 }
 
 function rowToPessoa(header, row) {
