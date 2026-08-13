@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { fetchGuestList } from '../utils/rsvpApi'
+import { fetchLista } from '../utils/rsvpApi'
 
 export default function Lista() {
   const [pin, setPin] = useState('')
-  const [guests, setGuests] = useState(null)
+  const [familias, setFamilias] = useState(null)
   const [status, setStatus] = useState('idle')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -12,8 +12,8 @@ export default function Lista() {
     setStatus('loading')
     setErrorMessage('')
     try {
-      const data = await fetchGuestList(pin)
-      setGuests(data)
+      const data = await fetchLista(pin)
+      setFamilias(data)
       setStatus('idle')
     } catch (err) {
       setStatus('error')
@@ -21,9 +21,7 @@ export default function Lista() {
     }
   }
 
-  const totalPessoas = guests ? guests.reduce((sum, g) => sum + Number(g.total), 0) : 0
-
-  if (!guests) {
+  if (!familias) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black px-6">
         <form onSubmit={handleSubmit} className="bg-white/5 border border-amber-500/30 rounded-2xl p-8 w-full max-w-sm space-y-4">
@@ -50,6 +48,15 @@ export default function Lista() {
     )
   }
 
+  const totalPagantes = familias.reduce(
+    (sum, f) => sum + f.membros.filter((m) => !m.naoPagante).length,
+    0,
+  )
+  const totalNaoPagantes = familias.reduce(
+    (sum, f) => sum + f.membros.filter((m) => m.naoPagante).length,
+    0,
+  )
+
   return (
     <div className="min-h-screen bg-white text-black p-8 print:p-0">
       <div className="no-print flex justify-between items-center mb-6">
@@ -58,31 +65,40 @@ export default function Lista() {
           Imprimir
         </button>
       </div>
-      <p className="mb-4 font-semibold">
-        Total de confirmados: {guests.length} grupos / {totalPessoas} pessoas
+      <p className="mb-6 font-semibold">
+        Pagantes confirmados: {totalPagantes}/60 · Não pagantes confirmados: {totalNaoPagantes}
       </p>
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="border-b-2 border-black text-left">
-            <th className="py-2 pr-4 w-10">✓</th>
-            <th className="py-2 pr-4">Titular</th>
-            <th className="py-2 pr-4">Acompanhantes</th>
-            <th className="py-2 pr-4 w-16">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {guests.map((g, i) => (
-            <tr key={i} className="border-b border-black/20">
-              <td className="py-2 pr-4">
-                <span className="inline-block w-5 h-5 border-2 border-black" />
-              </td>
-              <td className="py-2 pr-4">{g.nome}</td>
-              <td className="py-2 pr-4">{g.acompanhantes.join(', ')}</td>
-              <td className="py-2 pr-4">{g.total}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {familias.map((f) => (
+        <div key={f.familia} className="mb-6">
+          <h2 className="text-lg font-bold mb-2">{f.familia}</h2>
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b-2 border-black text-left">
+                <th className="py-2 pr-4 w-10">✓</th>
+                <th className="py-2 pr-4">Nome</th>
+                <th className="py-2 pr-4">Observação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {f.membros.map((m, i) => {
+                const nota = [m.idadeNota, m.nota].filter(Boolean).join(' — ')
+                return (
+                  <tr key={i} className="border-b border-black/20">
+                    <td className="py-2 pr-4">
+                      <span className="inline-block w-5 h-5 border-2 border-black" />
+                    </td>
+                    <td className="py-2 pr-4">{m.nome}</td>
+                    <td className="py-2 pr-4">
+                      {nota}
+                      {m.naoPagante && <span className="ml-2 text-xs text-black/60">(não pagante)</span>}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      ))}
     </div>
   )
 }
