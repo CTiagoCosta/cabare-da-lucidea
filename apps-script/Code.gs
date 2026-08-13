@@ -118,42 +118,53 @@ function handleConfirmar(ids) {
     return jsonResponse({ ok: false, error: 'nenhum convidado selecionado' })
   }
 
-  const sheet = getConvidadosSheet()
-  const range = sheet.getDataRange()
-  const values = range.getValues()
-  const header = values[0]
-  const idIdx = header.indexOf('ID')
-  const familiaIdx = header.indexOf('Família')
-  const confirmadoIdx = header.indexOf('Confirmado')
-  const confirmadoEmIdx = header.indexOf('ConfirmadoEm')
-
-  let familiaAlvo = null
-  const now = new Date()
-  for (let i = 1; i < values.length; i++) {
-    if (ids.indexOf(values[i][idIdx]) === -1) continue
-    if (familiaAlvo === null) familiaAlvo = values[i][familiaIdx]
-    if (values[i][familiaIdx] !== familiaAlvo) {
-      return jsonResponse({ ok: false, error: 'seleção inválida: pessoas de famílias diferentes' })
-    }
-    if (values[i][confirmadoIdx] !== true) {
-      values[i][confirmadoIdx] = true
-      values[i][confirmadoEmIdx] = now
-    }
+  const lock = LockService.getScriptLock()
+  try {
+    lock.waitLock(5000)
+  } catch (err) {
+    return jsonResponse({ ok: false, error: 'sistema ocupado, tente novamente em instantes' })
   }
 
-  if (familiaAlvo === null) {
-    return jsonResponse({ ok: false, error: 'convidado não encontrado' })
+  try {
+    const sheet = getConvidadosSheet()
+    const range = sheet.getDataRange()
+    const values = range.getValues()
+    const header = values[0]
+    const idIdx = header.indexOf('ID')
+    const familiaIdx = header.indexOf('Família')
+    const confirmadoIdx = header.indexOf('Confirmado')
+    const confirmadoEmIdx = header.indexOf('ConfirmadoEm')
+
+    let familiaAlvo = null
+    const now = new Date()
+    for (let i = 1; i < values.length; i++) {
+      if (ids.indexOf(values[i][idIdx]) === -1) continue
+      if (familiaAlvo === null) familiaAlvo = values[i][familiaIdx]
+      if (values[i][familiaIdx] !== familiaAlvo) {
+        return jsonResponse({ ok: false, error: 'seleção inválida: pessoas de famílias diferentes' })
+      }
+      if (values[i][confirmadoIdx] !== true) {
+        values[i][confirmadoIdx] = true
+        values[i][confirmadoEmIdx] = now
+      }
+    }
+
+    if (familiaAlvo === null) {
+      return jsonResponse({ ok: false, error: 'convidado não encontrado' })
+    }
+
+    range.setValues(values)
+
+    const membros = values
+      .slice(1)
+      .filter((row) => row[familiaIdx] === familiaAlvo)
+      .map((row) => rowToPessoa(header, row))
+      .map(pessoaParaMembro)
+
+    return jsonResponse({ ok: true, familia: familiaAlvo, membros })
+  } finally {
+    lock.releaseLock()
   }
-
-  range.setValues(values)
-
-  const membros = values
-    .slice(1)
-    .filter((row) => row[familiaIdx] === familiaAlvo)
-    .map((row) => rowToPessoa(header, row))
-    .map(pessoaParaMembro)
-
-  return jsonResponse({ ok: true, familia: familiaAlvo, membros })
 }
 
 function handleLista(pin) {
