@@ -41,7 +41,7 @@ export default function ConfirmarPresenca() {
     return (
       <section id="confirmar" className="relative overflow-hidden border-t border-amber-500/10 bg-velvet/25 px-5 py-20 text-center">
         <div className="max-w-xl mx-auto bg-white/[0.06] border border-amber-500/25 rounded-2xl p-10">
-          <h2 className="font-display text-2xl font-semibold text-gold-gradient mb-2">Presença confirmada! �2</h2>
+          <h2 className="font-display text-2xl font-semibold text-gold-gradient mb-2">Presença confirmada! 🥂</h2>
           <p className="text-white/70 mb-4">Te esperamos no Cabaré da Lucidéa!</p>
           <ul className="text-left text-white/80 text-sm space-y-1 max-w-xs mx-auto">
             {resultado.membros
