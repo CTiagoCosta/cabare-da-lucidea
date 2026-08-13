@@ -19,3 +19,11 @@ Troque `SEU_PIN` e `<URL>` pelos valores reais (o PIN está em **Configurações
 - Família de uma pessoa: abra `<URL>?action=familia&id=silva-costa-01` — deve retornar a família "Família Silva Costa" com os 12 membros, todos `"confirmado":false`.
 - Lista do organizador: abra `<URL>?action=lista&pin=SEU_PIN` — deve retornar `{"ok":true,"familias":[]}` (ninguém confirmou ainda).
 - PIN errado: abra `<URL>?action=lista&pin=0000` — deve retornar `{"ok":false,"error":"PIN inválido"}`.
+- Confirmação (POST): rode o comando abaixo, trocando `<URL>`:
+
+  ```bash
+  curl -X POST "<URL>" -H "Content-Type: text/plain;charset=utf-8" -d '{"action":"confirmar","ids":["silva-costa-01","silva-costa-02"]}'
+  ```
+
+  Deve retornar `{"ok":true,...}` com `familia:"Família Silva Costa"` e, no array `membros`, os dois ids acima agora com `"confirmado":true`. Este é o único endpoint de escrita e o único que exercita o `Content-Type: text/plain;charset=utf-8` / CORS, então vale testá-lo antes de divulgar o link.
+- **Depois de testar o POST acima**, abra a aba "Convidados" na planilha e reverta manualmente as duas linhas usadas no teste (`silva-costa-01` e `silva-costa-02`): defina `Confirmado` de volta para `FALSE` e apague o valor de `ConfirmadoEm`. Assim os dados de teste não ficam misturados com as confirmações reais quando o link for compartilhado com a família.
