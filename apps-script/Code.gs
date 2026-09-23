@@ -33,7 +33,7 @@ const SEED_CONVIDADOS = [
   ['silva-oliveira-03', 'Família Silva Oliveira', 'Lúcio Miguel', '', 'Filho da Ririan', false],
   ['silva-oliveira-04', 'Família Silva Oliveira', 'Rivian Silva', '', 'Nem', false],
   ['silva-oliveira-05', 'Família Silva Oliveira', 'Victoria Silva', '', 'Filha Nem', false],
-  ['silva-oliveira-06', 'Família Silva Oliveira', 'Kauê Silva', '', 'Filho Nem', false],
+  ['silva-oliveira-06', 'Família Silva Oliveira', 'Kauã Silva', '', 'Filho Nem', false],
 
   ['silva-pinheiro-01', 'Família Silva Pinheiro', 'Roberto Silva Pinheiro', '', '', false],
   ['silva-pinheiro-02', 'Família Silva Pinheiro', 'Albanizia Pinheiro', '', '', false],
