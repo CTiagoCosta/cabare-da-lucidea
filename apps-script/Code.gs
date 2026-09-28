@@ -55,8 +55,8 @@ const SEED_CONVIDADOS = [
   ['cavalcante-03', 'Família Cavalcante', 'Ester Cavalcante', '8 anos', '', true],
   ['cavalcante-04', 'Família Cavalcante', 'Julia Cavalcante', '6 anos', '', true],
   ['cavalcante-05', 'Família Cavalcante', 'Jonas Cavalcante', '2 anos', '', true],
-  ['cavalcante-06', 'Família Cavalcante', 'Danilo Cavalcante', '', '', false],
-  ['cavalcante-07', 'Família Cavalcante', 'Ingrid Cavalcante', '', '', false],
+  ['cavalcante-06', 'Família Cavalcante', 'Bento Curcino', '', '', false],
+  ['cavalcante-07', 'Família Cavalcante', 'Lena Curcino', '', '', false],
 
   ['franco-01', 'Família Franco', 'Ivo Franco', '', '', false],
   ['franco-02', 'Família Franco', 'Selma Franco', '', '', false],
@@ -78,7 +78,7 @@ const SEED_CONVIDADOS = [
   ['amigos-13', 'Amigos', 'Edna Ribeiro', '', '', false],
   ['amigos-14', 'Amigos', 'Tânia Ribeiro', '', '', false],
   ['amigos-15', 'Amigos', 'Ângela', '', '', false],
-  ['amigos-16', 'Amigos', 'Osvaldo', '', '', false],
+  ['amigos-16', 'Amigos', 'Orlando', '', '', false],
   ['amigos-17', 'Amigos', 'Wladimir', '', '', false],
   ['amigos-18', 'Amigos', 'Luzia', '', '', false],
 ]
