@@ -14,12 +14,10 @@ const SEED_CONVIDADOS = [
   ['silva-costa-10', 'Família Silva Costa', 'Enzo Gabriel', '7 anos', '', true],
   ['silva-costa-11', 'Família Silva Costa', 'Virgínia Ferreira', '', '', false],
   ['silva-costa-12', 'Família Silva Costa', 'Branca Ferreira', '', '', false],
-  ['silva-costa-13', 'Família Silva Costa', 'Rodrigo Ferreira', '', '', false],
+  ['silva-costa-13', 'Família Silva Costa', 'Larissa Ferreira', '', '', false],
 
-  ['silva-meireles-01', 'Família Silva Meireles', 'Nazaré Meireles', '', '', false],
   ['silva-meireles-02', 'Família Silva Meireles', 'Romário Meireles', '', '', false],
   ['silva-meireles-03', 'Família Silva Meireles', 'Suellen Meireles', '', '', false],
-  ['silva-meireles-04', 'Família Silva Meireles', 'Tayane Meireles', '', '', false],
   ['silva-meireles-05', 'Família Silva Meireles', 'Wendel Meireles', '', '', false],
 
   ['silva-01', 'Família Silva', 'Isabella Silva', '', '', false],
@@ -44,7 +42,6 @@ const SEED_CONVIDADOS = [
   ['silva-pereira-02', 'Família Silva Pereira', 'Nilda Pereira', '', '', false],
   ['silva-pereira-03', 'Família Silva Pereira', 'Mizael Silva', '', '', false],
   ['silva-pereira-04', 'Família Silva Pereira', 'Ruth Silva', '', '', false],
-  ['silva-pereira-05', 'Família Silva Pereira', 'Lucas Silva', '', '', false],
 
   ['angelim-01', 'Família Angelim', 'Iara Angelim', '', '', false],
   ['angelim-02', 'Família Angelim', 'Luís Angelim', '', '', false],
@@ -55,9 +52,6 @@ const SEED_CONVIDADOS = [
   ['cavalcante-03', 'Família Cavalcante', 'Ester Cavalcante', '8 anos', '', true],
   ['cavalcante-04', 'Família Cavalcante', 'Julia Cavalcante', '6 anos', '', true],
   ['cavalcante-05', 'Família Cavalcante', 'Jonas Cavalcante', '2 anos', '', true],
-
-  ['franco-01', 'Família Franco', 'Ivo Franco', '', '', false],
-  ['franco-02', 'Família Franco', 'Selma Franco', '', '', false],
 
   ['jacob-01', 'Família Jacob', 'Renata Jacob', '', '', false],
 
@@ -81,6 +75,11 @@ const SEED_CONVIDADOS = [
   ['amigos-18', 'Amigos', 'Luzia', '', '', false],
   ['amigos-19', 'Amigos', 'Bento Curcino', '', '', false],
   ['amigos-20', 'Amigos', 'Lena Curcino', '', '', false],
+  ['amigos-21', 'Amigos', 'Marcos Eliel', '', '', false],
+  ['amigos-22', 'Amigos', 'Darci', '', '', false],
+  ['amigos-23', 'Amigos', 'Luiz', '', '', false],
+  ['amigos-24', 'Amigos', 'Elizabete', '', '', false],
+  ['amigos-25', 'Amigos', 'Everaldo', '', '', false],
 ]
 
 function doGet(e) {
