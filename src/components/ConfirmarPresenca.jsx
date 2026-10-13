@@ -60,7 +60,7 @@ export default function ConfirmarPresenca() {
       <div className="max-w-xl mx-auto">
         <h2 className="font-display text-2xl font-semibold text-gold-gradient sm:text-3xl">Confirme sua presença</h2>
         <p className="mx-auto mt-4 max-w-md text-sm text-white/70 sm:text-base">
-          Precisamos da sua confirmação até <strong className="text-amber-400">07/10</strong> para reservar o seu lugar na plateia.
+          Precisamos da sua confirmação até <strong className="text-amber-400">16/10 às 11h</strong> para reservar o seu lugar na plateia.
         </p>
         <div className="mt-9 text-left bg-white/[0.06] border border-amber-500/25 rounded-2xl p-8">
           {step === 'busca' && <BuscaConvidado onSelecionar={handleSelecionar} />}
